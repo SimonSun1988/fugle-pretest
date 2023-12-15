@@ -1,0 +1,24 @@
+{
+  "name": "fugle-pretest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "app": "npx nodemon ./bin/run.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "app-root-path": "^3.1.0",
+    "koa": "^2.14.2",
+    "koa-router": "^12.0.1",
+    "koa-websocket": "^7.0.0",
+    "pretty-error": "^4.0.0",
+    "ws": "^8.15.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}
