@@ -2,6 +2,7 @@ const appRoot = require('app-root-path');
 const ws = require('ws');
 
 const redis = require(`${appRoot}/redis`);
+const libs = require(`${appRoot}/libs`);
 
 module.exports = (app) => {
   const wsClient = new ws('wss://ws.bitstamp.net');
@@ -70,49 +71,59 @@ module.exports = (app) => {
     }));
   });
 
-  wsClient.on('message', (data) => {
+  wsClient.on('message', async (data) => {
     try {
-      const { channel: bitstampChannel } = JSON.parse(data);
-      console.log(`bitstampChannel = ${bitstampChannel}`);
+      data = JSON.parse(data);
+      const { channel: bitstampChannel } = data;
 
       if (bitstampChannel === 'live_trades_btcusd') {
-        redis.pub.publish('channel-btcusd-trades', data);
+        data.ohlc = await libs.ohlc('btcusd');
+        redis.pub.publish('channel-btcusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_ethusd') {
-        redis.pub.publish('channel-ethusd-trades', data);
+        data.ohlc = await libs.ohlc('ethusd');
+        redis.pub.publish('channel-ethusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_usdtusd') {
-        redis.pub.publish('channel-usdtusd-trades', data);
+        data.ohlc = await libs.ohlc('usdtusd');
+        redis.pub.publish('channel-usdtusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_xrpusd') {
-        redis.pub.publish('channel-xrpusd-trades', data);
+        data.ohlc = await libs.ohlc('xrpusd');
+        redis.pub.publish('channel-xrpusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_solusd') {
-        redis.pub.publish('channel-solusd-trades', data);
+        data.ohlc = await libs.ohlc('solusd');
+        redis.pub.publish('channel-solusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_usdcusd') {
-        redis.pub.publish('channel-usdcusd-trades', data);
+        data.ohlc = await libs.ohlc('usdcusd');
+        redis.pub.publish('channel-usdcusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_adausd') {
-        redis.pub.publish('channel-adausd-trades', data);
+        data.ohlc = await libs.ohlc('adausd');
+        redis.pub.publish('channel-adausd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_avaxusd') {
-        redis.pub.publish('channel-avaxusd-trades', data);
+        data.ohlc = await libs.ohlc('avaxusd');
+        redis.pub.publish('channel-avaxusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_dogeusd') {
-        redis.pub.publish('channel-dogeusd-trades', data);
+        data.ohlc = await libs.ohlc('dogeusd');
+        redis.pub.publish('channel-dogeusd-trades', JSON.stringify(data));
       }
 
       if (bitstampChannel === 'live_trades_dotusd') {
-        redis.pub.publish('channel-dotusd-trades', data);
+        data.ohlc = await libs.ohlc('dotusd');
+        redis.pub.publish('channel-dotusd-trades', JSON.stringify(data));
       }
 
     } catch (err) {
