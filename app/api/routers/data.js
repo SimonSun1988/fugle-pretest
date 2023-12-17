@@ -9,6 +9,10 @@ module.exports = async (ctx, next) => {
       throw new Error('1003');
     }
 
+    if (parseFloat(id) < 1 || parseFloat(id) > 1000) {
+      throw new Error('1003');
+    }
+
     const { data: numberList } = await axios.get('https://hacker-news.firebaseio.com/v0/topstories.json?print=pretty')
     .catch((err) => {
       throw new Error('1001');
