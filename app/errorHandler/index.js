@@ -3,13 +3,7 @@ const PrettyError = require('pretty-error');
 const prettyError = new PrettyError();
 prettyError.withoutColors();
 prettyError.skipPackage(
-  'koa-compose',
   'koa-router',
-  'koa2-cors',
-  'koa-body',
-  'koa-logger',
-  'jsonwebtoken',
-  'bluebird'
 );
 const _ = require('lodash');
 

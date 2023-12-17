@@ -5,7 +5,6 @@ module.exports = async (ctx, next) => {
   try {
     const { user: id } = ctx.query;
 
-    console.log(parseFloat(id))
     if (_.isInteger(parseFloat(id)) === false) {
       throw new Error('1003');
     }

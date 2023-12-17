@@ -11,7 +11,7 @@ module.exports = async (key) => {
       return null;
     }
 
-    return await libs.parseStringObject(value);
+    return JSON.parse(value);
   } catch (err) {
     throw new Error(err);
   }

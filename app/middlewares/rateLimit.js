@@ -1,6 +1,5 @@
 const appRoot = require('app-root-path');
 const moment = require('moment');
-const _ = require('lodash');
 
 const redis = require(`${appRoot}/redis`);
 
@@ -56,12 +55,14 @@ module.exports = () => async (ctx, next) => {
     await redis.set(`rateLimit-${ctx.state.clientIp}`, {
       count: ipLog.count + 1,
       ip: ctx.state.clientIp,
+      user: ctx.query.user,
       expired: ipLog.expired
     }, ipLog.expired - now);
 
     await redis.set(`rateLimit-${ctx.query.user}`, {
       count: userLog.count + 1,
       ip: ctx.state.clientIp,
+      user: ctx.query.user,
       expired: userLog.expired
     }, userLog.expired - now);
 
