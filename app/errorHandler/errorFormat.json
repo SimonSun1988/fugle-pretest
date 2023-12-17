@@ -3,5 +3,20 @@
     "status": 500,
     "code": 1000,
     "message": "undefined error"
+  },
+  "1001": {
+    "status": 500,
+    "code": 1001,
+    "message": "invaild url"
+  },
+  "1002": {
+    "status": 500,
+    "code": 1002,
+    "message": "get ip error"
+  },
+  "1003": {
+    "status": 400,
+    "code": 1003,
+    "message": "user must between 1 to 1000 integer"
   }
 }

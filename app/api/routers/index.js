@@ -4,7 +4,9 @@ const router = new Router({
   prefix: ''
 });
 
-router.get('/data', require(`${appRoot}/app/api/routers/data`));
+const rateLimit = require(`${appRoot}/app/middlewares/rateLimit`);
+
+router.get('/data', rateLimit(), require(`${appRoot}/app/api/routers/data`));
 
 module.exports = (app) => {
   app.use(router.routes());

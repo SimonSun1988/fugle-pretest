@@ -1,7 +1,4 @@
 const appRoot = require('app-root-path');
-
-const errorFormat = require(`${appRoot}/app/errorHandler/errorFormat`);
-
 const PrettyError = require('pretty-error');
 const prettyError = new PrettyError();
 prettyError.withoutColors();
@@ -14,13 +11,24 @@ prettyError.skipPackage(
   'jsonwebtoken',
   'bluebird'
 );
+const _ = require('lodash');
+
+const errorFormat = require(`${appRoot}/app/errorHandler/errorFormat`);
+const libs = require(`${appRoot}/libs`);
 
 module.exports = () => {
   return async (ctx, next) => {
     try {
       await next();
     } catch (err) {
-      const customError = errorFormat[err.message] || sequelizeValidationError || errorFormat['1000'];
+
+      const errorObject = await libs.parseStringObject(err.message);
+      if (_.isObjectLike(errorObject) === true) {
+        ctx.status = errorObject.status;
+        return ctx.body = errorObject.response;
+      }
+
+      const customError = errorFormat[err.message] || errorFormat['1000'];
       const errorResponse = {};
       errorResponse.code = customError.code;
       errorResponse.status = customError.status;
