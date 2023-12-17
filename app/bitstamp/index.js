@@ -8,7 +8,6 @@ module.exports = (app) => {
   const wsClient = new ws('wss://ws.bitstamp.net');
 
   wsClient.on('open', function open() {
-    console.log('Connected to ws.bitstamp.net');
     wsClient.send(JSON.stringify({
       event: 'bts:subscribe',
       data: {
