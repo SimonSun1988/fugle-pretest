@@ -3,7 +3,7 @@
 ## Environment
 - macOS Sonoma v14.2
 - Node.js v18.0.0
-- redids v7.0.5
+- redis v7.0.5
 
 ## Install Packages
 `npm install`
